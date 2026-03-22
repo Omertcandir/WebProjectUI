@@ -3,12 +3,13 @@ import { Card, CardHeader, CardBody, Input, Button, Alert, Spinner } from '../..
 import styles from './Progress.module.css'
 
 const FIELDS = [
-  { id: 'weight',            label: 'Kilo (kg)',      placeholder: '75.5' },
-  { id: 'height',            label: 'Boy (cm)',       placeholder: '178' },
-  { id: 'chest',             label: 'Göğüs (cm)',     placeholder: '95' },
-  { id: 'waist',             label: 'Bel (cm)',       placeholder: '80' },
-  { id: 'hip',               label: 'Kalça (cm)',     placeholder: '98' },
-  { id: 'bodyFatPercentage', label: 'Vücut Yağ %',   placeholder: '18.5' },
+  { id: 'weight',            label: 'Weight (kg)',    placeholder: '75.5', min: 1, max: 1000 },
+  { id: 'height',            label: 'Height (cm)',     placeholder: '178', min: 30, max: 300 },
+  { id: 'bodyFatPercentage', label: 'Body Fat %', placeholder: '18.5', min: 0, max: 100 },
+  { id: 'chest',             label: 'Chest (cm)',   placeholder: '95', min: 0, max: 500 },
+  { id: 'waist',             label: 'Waist (cm)',     placeholder: '80', min: 0, max: 500 },
+  { id: 'arm',               label: 'Arm (cm)',     placeholder: '34', min: 0, max: 500 },
+  { id: 'leg',               label: 'Leg (cm)',   placeholder: '56', min: 0, max: 500 },
 ]
 
 export default function Progress({ data = [], loading, onSubmit }) {
@@ -21,13 +22,30 @@ export default function Progress({ data = [], loading, onSubmit }) {
     e.preventDefault()
     setStatus(null)
     const body = {}
-    FIELDS.forEach(f => { if (form[f.id]) body[f.id] = parseFloat(form[f.id]) })
+    for (const field of FIELDS) {
+      const raw = form[field.id]
+      if (raw === undefined || raw === '') {
+        setStatus({ type: 'error', msg: 'Please fill in all measurement fields.' })
+        return
+      }
+      const value = parseFloat(raw)
+      if (Number.isNaN(value)) {
+        setStatus({ type: 'error', msg: `Enter a valid number for ${field.label}.` })
+        return
+      }
+      if (value < field.min || value > field.max) {
+        setStatus({ type: 'error', msg: `${field.label} must be between ${field.min}-${field.max}.` })
+        return
+      }
+      body[field.id] = value
+    }
+
     try {
       await onSubmit(body)
-      setStatus({ type: 'success', msg: '✓ Ölçüm kaydedildi!' })
+      setStatus({ type: 'success', msg: '✓ Measurement saved.' })
       setForm({})
     } catch (err) {
-      setStatus({ type: 'error', msg: err.message || 'Kaydedilemedi.' })
+      setStatus({ type: 'error', msg: err.message || 'Could not save.' })
     }
   }
 
@@ -37,7 +55,7 @@ export default function Progress({ data = [], loading, onSubmit }) {
     <div className={styles.grid}>
       {/* Form */}
       <Card>
-        <CardHeader>Yeni Ölçüm Ekle</CardHeader>
+        <CardHeader>Add New Measurement</CardHeader>
         <CardBody>
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.fields}>
@@ -45,22 +63,25 @@ export default function Progress({ data = [], loading, onSubmit }) {
                 <Input
                   key={f.id} id={f.id} label={f.label}
                   type="number" placeholder={f.placeholder}
+                  min={f.min}
+                  max={f.max}
+                  step="0.1"
                   value={form[f.id] || ''} onChange={set(f.id)}
                 />
               ))}
             </div>
             {status && <Alert type={status.type}>{status.msg}</Alert>}
-            <Button type="submit" size="md" fullWidth>Kaydet</Button>
+            <Button type="submit" size="md" fullWidth>Save</Button>
           </form>
         </CardBody>
       </Card>
 
       {/* History */}
       <Card>
-        <CardHeader>Son Ölçümler</CardHeader>
+        <CardHeader>Recent Measurements</CardHeader>
         <CardBody>
           {loading ? <Spinner /> : recent.length === 0
-            ? <p className={styles.empty}>Henüz ölçüm yok.</p>
+            ? <p className={styles.empty}>No measurements yet.</p>
             : recent.map((item, i) => (
               <div key={i} className={styles.histRow}>
                 <div className={styles.histDate}>{item.date || '—'}</div>
@@ -68,9 +89,9 @@ export default function Progress({ data = [], loading, onSubmit }) {
                   {item.weight || item.bodyWeight
                     ? <span className={styles.chip}>{item.weight || item.bodyWeight} kg</span> : null}
                   {item.bodyFatPercentage || item.bodyFat
-                    ? <span className={styles.chip}>{item.bodyFatPercentage || item.bodyFat}% yağ</span> : null}
+                    ? <span className={styles.chip}>{item.bodyFatPercentage || item.bodyFat}% fat</span> : null}
                   {item.waist || item.waistCm
-                    ? <span className={styles.chip}>{item.waist || item.waistCm} bel</span> : null}
+                    ? <span className={styles.chip}>{item.waist || item.waistCm} waist</span> : null}
                 </div>
               </div>
             ))

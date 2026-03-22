@@ -8,9 +8,16 @@ export function AuthProvider({ children }) {
   })
 
   const login = useCallback((userData) => {
-    localStorage.setItem('token', userData.token)
-    localStorage.setItem('user', JSON.stringify(userData))
-    setUser(userData)
+    const normalizedUser = {
+      ...userData,
+      userId: userData?.userId ?? userData?.UserId ?? userData?.id ?? null,
+      memberId: userData?.memberId ?? userData?.MemberId ?? null,
+      trainerId: userData?.trainerId ?? userData?.TrainerId ?? null,
+      role: userData?.role ?? userData?.Role ?? '',
+    }
+    localStorage.setItem('token', normalizedUser.token)
+    localStorage.setItem('user', JSON.stringify(normalizedUser))
+    setUser(normalizedUser)
   }, [])
 
   const logout = useCallback(() => {

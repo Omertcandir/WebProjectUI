@@ -1,0 +1,174 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #1a1a1a;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.formCard {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.formCard form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formCard input,
+.formCard textarea,
+.formCard select {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.formCard input:focus,
+.formCard textarea:focus,
+.formCard select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.error {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.libraryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.libraryHeader h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1a1a1a;
+}
+
+.libraryActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filterSelect {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btnSecondary {
+  background: #fff;
+  border: 1px solid #667eea;
+  color: #667eea;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.exerciseList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.exerciseCard {
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+}
+
+.exerciseTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.exerciseTop span {
+  color: #555;
+  font-size: 12px;
+  background: #f3f5ff;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.exerciseCard p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.exerciseCard a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.info {
+  background: #f0f4ff;
+  border-left: 4px solid #667eea;
+  border-radius: 6px;
+  padding: 16px;
+  font-size: 14px;
+  color: #555;
+}

@@ -18,21 +18,20 @@ export default function Navbar() {
       </Link>
 
       <ul className={styles.links}>
-        <li><a href="#plans">Planlar</a></li>
-        <li><a href="#features">Özellikler</a></li>
-        <li><a href="#roles">Roller</a></li>
+        <li><a href="#plans">Plans</a></li>
+        <li><a href="#features">Features</a></li>
       </ul>
 
       <div className={styles.actions}>
         {isAuthenticated ? (
           <>
             <Link to="/dashboard" className={styles.btnGhost}>Dashboard</Link>
-            <button className={styles.btnPrimary} onClick={handleLogout}>Çıkış Yap</button>
+            <button className={styles.btnPrimary} onClick={handleLogout}>Log Out</button>
           </>
         ) : (
           <>
-            <Link to="/login" className={styles.btnGhost}>Giriş Yap</Link>
-            <Link to="/register" className={styles.btnPrimary}>Üye Ol</Link>
+            <Link to="/login" className={styles.btnGhost}>Sign In</Link>
+            <Link to="/register" className={styles.btnPrimary}>Sign Up</Link>
           </>
         )}
       </div>

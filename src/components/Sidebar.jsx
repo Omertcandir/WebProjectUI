@@ -2,25 +2,59 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import styles from './Sidebar.module.css'
 
-const NAV = [
-  { section: 'Genel',     items: [{ key: 'overview', icon: '⊞', label: 'Dashboard' }] },
-  { section: 'Antrenman', items: [
-    { key: 'sessions', icon: '⚡', label: 'Seanslarım' },
-    { key: 'programs', icon: '📋', label: 'Programlar' },
+const NAV_MEMBER = [
+  { section: 'General',     items: [{ key: 'overview', icon: '⊞', label: 'Dashboard' }] },
+  { section: 'Workouts', items: [
+    { key: 'sessions', icon: '⚡', label: 'My Sessions' },
+    { key: 'programs', icon: '📋', label: 'Programs' },
   ]},
-  { section: 'Üyelik',    items: [{ key: 'plans', icon: '💳', label: 'Planlar' }] },
-  { section: 'Gelişim',   items: [{ key: 'progress', icon: '📊', label: 'İlerleme' }] },
+  { section: 'Membership',    items: [{ key: 'plans', icon: '💳', label: 'Plans' }] },
+  { section: 'Progress',   items: [{ key: 'progress', icon: '📊', label: 'Tracking' }] },
+]
+
+const NAV_TRAINER = [
+  { section: 'General',     items: [{ key: 'overview', icon: '⊞', label: 'Dashboard' }] },
+  { section: 'Workouts', items: [
+    { key: 'trainer-programs', icon: '📋', label: 'Create Programs' },
+    { key: 'trainer-exercises', icon: '🏋️', label: 'Exercises' },
+    { key: 'sessions', icon: '⚡', label: 'Sessions' },
+  ]},
+  { section: 'Members', items: [
+    { key: 'trainer-members', icon: '👥', label: 'Members' },
+    { key: 'trainer-finance', icon: '💰', label: 'Unpaid Reports' },
+  ]},
+  { section: 'Progress',   items: [{ key: 'progress', icon: '📊', label: 'Tracking' }] },
+]
+
+const NAV_ADMIN = [
+  { section: 'General',     items: [{ key: 'overview', icon: '⊞', label: 'Dashboard' }] },
+  { section: 'Staff', items: [
+    { key: 'admin-staff', icon: '👨‍💼', label: 'Staff Management' },
+  ]},
+  { section: 'Membership', items: [
+    { key: 'admin-plans', icon: '💳', label: 'Plans' },
+    { key: 'admin-members', icon: '👥', label: 'Members' },
+  ]},
+  { section: 'Finance', items: [
+    { key: 'admin-finance', icon: '💰', label: 'Reports' },
+  ]},
 ]
 
 export default function Sidebar({ active, onNav }) {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  
+  const rawRole = user?.role
+  const role = typeof rawRole === 'number'
+    ? ({ 1: 'ADMIN', 2: 'TRAINER', 3: 'MEMBER' }[rawRole] || 'MEMBER')
+    : String(rawRole || 'MEMBER').toUpperCase()
+  
+  const NAV = role === 'ADMIN' ? NAV_ADMIN : role === 'TRAINER' ? NAV_TRAINER : NAV_MEMBER
 
   const handleLogout = () => { logout(); navigate('/') }
 
-  const name = [user?.firstName, user?.lastName].filter(Boolean).join(' ') || user?.username || 'Kullanıcı'
+  const name = [user?.firstName, user?.lastName].filter(Boolean).join(' ') || user?.username || 'User'
   const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
-  const role = user?.role || 'MEMBER'
 
   return (
     <aside className={styles.sidebar}>
@@ -49,7 +83,7 @@ export default function Sidebar({ active, onNav }) {
             <div className={styles.userName}>{name}</div>
             <div className={styles.userRole}>{role}</div>
           </div>
-          <button className={styles.logoutBtn} onClick={handleLogout} title="Çıkış">⏻</button>
+          <button className={styles.logoutBtn} onClick={handleLogout} title="Log out">⏻</button>
         </div>
       </div>
     </aside>

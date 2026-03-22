@@ -9,7 +9,7 @@ export default function Login() {
   const { login } = useAuth()
   const navigate = useNavigate()
 
-  const [form, setForm] = useState({ username: '', password: '' })
+  const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -18,7 +18,9 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    if (!form.username || !form.password) return setError('Lütfen tüm alanları doldurun.')
+    if (!form.email || !form.password) return setError('Please fill in all fields.')
+    if (!/^\S+@\S+\.\S+$/.test(form.email)) return setError('Please enter a valid email address.')
+    if (form.password.length < 8) return setError('Password must be at least 8 characters.')
 
     setLoading(true)
     try {
@@ -40,16 +42,16 @@ export default function Login() {
         <div className={styles.leftGlow} />
         <div className={styles.leftTop}>
           <Link to="/" className={styles.logo}>IRON<span>FORGE</span></Link>
-          <h2 className={styles.leftTitle}>Geri<br />Döndün <span className={styles.dot}>.</span></h2>
-          <p className={styles.leftSub}>Antrenörün, programın ve ilerleme verilerinden sadece birkaç saniye uzaktasın.</p>
+          <h2 className={styles.leftTitle}>Welcome<br />Back <span className={styles.dot}>.</span></h2>
+          <p className={styles.leftSub}>You are only a few seconds away from your coach, your program, and your progress data.</p>
         </div>
         <div className={styles.testimonial}>
-          <p className={styles.tQuote}>"IronForge sayesinde 3 ayda hedefime ulaştım. Antrenörümle koordinasyon ve ilerleme takibi inanılmaz kolaylaştı."</p>
+          <p className={styles.tQuote}>"Thanks to IronForge, I reached my goal in 3 months. Coach coordination and progress tracking became incredibly easy."</p>
           <div className={styles.tAuthor}>
             <div className={styles.tAvatar}>AK</div>
             <div>
               <div className={styles.tName}>Ahmet K.</div>
-              <div className={styles.tRole}>Pro Plan Üyesi</div>
+              <div className={styles.tRole}>Pro Plan Member</div>
             </div>
           </div>
         </div>
@@ -57,25 +59,25 @@ export default function Login() {
 
       {/* Right Panel */}
       <div className={styles.right}>
-        <Link to="/" className={styles.backHome}>← Ana Sayfa</Link>
+        <Link to="/" className={styles.backHome}>← Home</Link>
         <div className={styles.formBox}>
-          <h1 className={styles.formTitle}>Giriş Yap</h1>
-          <p className={styles.formSub}>Hesabın yok mu? <Link to="/register">Ücretsiz kayıt ol</Link></p>
+          <h1 className={styles.formTitle}>Sign In</h1>
+          <p className={styles.formSub}>Don't have an account? <Link to="/register">Create one for free</Link></p>
 
           {error && <Alert type="error">{error}</Alert>}
 
           <form onSubmit={handleSubmit} className={styles.form}>
             <Input
-              label="E-posta veya Kullanıcı Adı"
-              id="username"
-              type="text"
-              placeholder="ornek@eposta.com"
-              value={form.username}
-              onChange={set('username')}
-              autoComplete="username"
+              label="Email"
+              id="email"
+              type="email"
+              placeholder="example@email.com"
+              value={form.email}
+              onChange={set('email')}
+              autoComplete="email"
             />
             <Input
-              label="Şifre"
+              label="Password"
               id="password"
               type="password"
               placeholder="••••••••"
@@ -85,12 +87,12 @@ export default function Login() {
             />
             <div className={styles.optionsRow}>
               <label className={styles.rememberLabel}>
-                <input type="checkbox" /> Beni hatırla
+                <input type="checkbox" /> Remember me
               </label>
-              <a href="#" className={styles.forgot}>Şifremi unuttum</a>
+              <a href="#" className={styles.forgot}>Forgot password</a>
             </div>
             <Button type="submit" size="lg" fullWidth loading={loading}>
-              Giriş Yap
+              Sign In
             </Button>
           </form>
         </div>
