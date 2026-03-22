@@ -1,0 +1,21 @@
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.form { display: flex; flex-direction: column; gap: 14px; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.histRow {
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+}
+.histRow:last-child { border-bottom: none; }
+.histDate { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+.histChips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  padding: 3px 10px; border-radius: 100px;
+  background: var(--surface2); border: 1px solid var(--border);
+  font-size: 12px; color: var(--text);
+}
+.empty { font-size: 13px; color: var(--muted); padding: 12px 0; }
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+  .fields { grid-template-columns: 1fr; }
+}

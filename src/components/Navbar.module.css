@@ -1,0 +1,50 @@
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 60px;
+  background: rgba(8, 10, 13, 0.88);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-family: var(--font-display); font-size: 24px; font-weight: 900;
+  letter-spacing: 0.08em; color: var(--white); text-decoration: none;
+}
+.logo span { color: var(--orange); }
+
+.links {
+  display: flex; gap: 32px; list-style: none;
+}
+.links a {
+  font-family: var(--font-display); font-size: 14px; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s;
+}
+.links a:hover { color: var(--white); }
+
+.actions { display: flex; gap: 10px; }
+
+.btnGhost {
+  padding: 8px 20px; background: transparent;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); text-decoration: none; transition: all 0.2s;
+}
+.btnGhost:hover { border-color: var(--border-hover); color: var(--white); }
+
+.btnPrimary {
+  padding: 8px 20px; background: var(--orange); border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-display); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #fff; text-decoration: none; cursor: pointer;
+  box-shadow: 0 0 16px var(--orange-glow); transition: all 0.2s;
+}
+.btnPrimary:hover { background: #ff7040; box-shadow: 0 0 28px var(--orange-glow); }
+
+@media (max-width: 768px) {
+  .nav { padding: 16px 20px; }
+  .links { display: none; }
+}
