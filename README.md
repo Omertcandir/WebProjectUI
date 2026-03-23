@@ -87,6 +87,26 @@ Current frontend integration uses:
 - `npm run build`: build production bundle
 - `npm run preview`: run local production preview
 
+## Screenshots
+
+You can explore the visual design and functionality of the IRONFORGE platform in the [Screenshots](https://github.com/Omertcandir/WebProjectUI/tree/main/Screenshots) directory. The application features a modern, sleek dark-themed interface with striking orange accents, designed to provide a premium fitness tracking experience.
+
+Here is a breakdown of the UI components and pages by category:
+
+### 1. Landing / Home Page (`homepage/`)
+- **First Impressions:** Showcases the initial view users see when entering the site, featuring the impactful "Forge Your Best Self" hero section.
+- **Features Overview:** Highlights the platform's core capabilities, such as smart tracking and coaching, under the "Everything in One Place" section.
+
+### 2. Authentication (`login-register/`)
+- **Onboarding Experience:** Contains clean, user-friendly forms for both "Create Account" (Register) and "Welcome Back" (Sign In) pages, ensuring a smooth entry into the platform.
+
+### 3. Role-Based Dashboards
+The application features dynamic routing and UI rendering based on the user's role. The screenshots are categorized to reflect these distinct experiences:
+
+- **Admin Panels (`admin/`):** The comprehensive control center. These screenshots display the full suite of management tools and panels available to administrators for overseeing the entire platform, users, and global settings.
+- **Trainer Panels (`trainer/`):** A focused, professional interface. It includes a tailored subset of panels designed specifically for coaches to easily manage their assigned clients, track member progress, and oversee workout routines without unnecessary administrative clutter.
+- **Member Panels (`member/`):** A highly personalized hub for the end-user. These screenshots highlight the core user experience, featuring unique sections dedicated to the individual's fitness journey, including active membership plans, daily workout sessions, and personal progress tracking.
+
 ## Project Structure
 
 ```text
